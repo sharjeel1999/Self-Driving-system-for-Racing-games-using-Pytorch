@@ -36,17 +36,18 @@ class CNN(nn.Module):
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
                 )
-        self.fc1 = nn.Linear(256*10*10, 750)
-        self.fc2 = nn.Linear(750, 180)
-        self.fc3 = nn.Linear(180, 5)
-
+        self.linear_layers = nn.Sequential(
+                nn.Linear(256*10*10, 750),
+                nn.BatchNorm1d(750),
+                nn.Linear(750, 180),
+                nn.BatchNorm1d(180),
+                nn.Linear(180, 5)
+                )
 
     def forward(self, image):
         x = self.feature_extraction(image)
         x = x.reshape(-1, 256*10*10)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = self.linear_layers(x)
         return x
    
 model = CNN()    
