@@ -19,20 +19,27 @@ class CNN(nn.Module):
         super(CNN, self).__init__()
         self.feature_extraction = nn.Sequential(
                 nn.Conv2d(1, 96, 5),
+                nn.BatchNorm2d(96),
                 nn.ReLU(),
                 nn.Conv2d(96, 256, 5),
+                nn.BatchNorm2d(256),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=1),
                 nn.Conv2d(256, 384, 5),
+                nn.BatchNorm2d(384),
                 nn.ReLU(),
                 nn.Conv2d(384, 384, 5),
+                nn.BatchNorm2d(384),
                 nn.ReLU(),
                 nn.Conv2d(384, 128, 5),
+                nn.BatchNorm2d(128),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2),
                 nn.Conv2d(128, 256, 5),
+                nn.BatchNorm2d(256),
                 nn.ReLU(),
                 nn.Conv2d(256, 256, 5),
+                nn.BatchNorm2d(256),
                 nn.ReLU(),
                 nn.MaxPool2d(kernel_size=2, stride=2)
                 )
@@ -100,35 +107,3 @@ if training is True:
         print(f"Epoch: {epoch+1}, loss: {running_loss}%")
     
     torch.save(model.state_dict(),"trained_model_01.pth")
-    
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
